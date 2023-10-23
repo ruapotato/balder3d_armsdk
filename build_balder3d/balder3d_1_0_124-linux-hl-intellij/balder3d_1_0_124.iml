@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="HAXE_MODULE" version="4">
+  <component name="HaxeModuleSettingsStorage">
+    <option name="arguments" value="" />
+    <option name="buildConfig" value="1" />
+    <option name="excludeFromCompilation" value="true" />
+    <option name="flexSdkName" value="flex_sdk_4.6" />
+    <option name="haxeTarget" value="C++" />
+    <option name="hxmlPath" value="$MODULE_DIR$/../balder3d_1_0_124-linux-hl.hxml" />
+    <option name="mainClass" value="Main" />
+    <option name="outputFileName" value="kha.swf" />
+    <option name="outputFolder" value="$MODULE_DIR$/../linux-hl" />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../linux-hl" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file:///matrix/david/main_home_folder/myProjects/balder3d/armsdk/Kha/Sources" isTestSource="false" />
+      <sourceFolder url="file:///matrix/david/main_home_folder/myProjects/balder3d/armsdk/Kha/Backends/Kinc-HL" isTestSource="false" />
+      <sourceFolder url="file:///matrix/david/main_home_folder/myProjects/balder3d/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/armory/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/iron/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/lib/haxebullet/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/lib/zui/Sources" isTestSource="false" />
+
+    </content>
+    <content url="file:///home/david/myProjects/balder3d/armsdk/armory">
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/armory" isTestSource="false" />
+    </content>
+    <content url="file:///home/david/myProjects/balder3d/armsdk/iron">
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/iron" isTestSource="false" />
+    </content>
+    <content url="file:///home/david/myProjects/balder3d/armsdk/lib/haxebullet">
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/lib/haxebullet" isTestSource="false" />
+    </content>
+    <content url="file:///home/david/myProjects/balder3d/armsdk/lib/zui">
+      <sourceFolder url="file:///home/david/myProjects/balder3d/armsdk/lib/zui" isTestSource="false" />
+    </content>
+    
+    <orderEntry type="jdk" jdkName="Haxe 3.2.0" jdkType="Haxe toolkit" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

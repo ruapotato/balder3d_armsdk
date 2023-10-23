@@ -1,0 +1,8 @@
+Publish in Blender
+cd to build folder: cd /home/david/myProjects/Balder/build_XYZ/linux-hl-build
+cd Release
+make -j16
+cd ../../linux-hl
+cp ../../build_XYZ/debug/html5/slimeball.ogg./data/
+mv ../linux-hl-build/Release/v* .
+./v<tab>

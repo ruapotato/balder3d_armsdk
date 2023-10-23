@@ -1,0 +1,634 @@
+pool link_pool
+  depth = 1
+
+rule cc
+  deps = gcc
+  depfile = $out.d
+  command = gcc -std=c11 -O2 -I../../../armsdk/Kha/Kinc/Sources -I../../../armsdk/Kha/Kinc/Backends/System/Linux/Sources -I../../../armsdk/Kha/Kinc/Backends/System/POSIX/Sources -I../wayland -I../../../armsdk/Kha/Kinc/Backends/Graphics4/OpenGL/Sources -I../../../armsdk/Kha/Kinc/Backends/Graphics5/G5onG4/Sources -I.. -I../../../armsdk/Kha/Backends/Kinc-HL/hl/src -I../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre -I../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/include -I../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib -I../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet -DHXCPP_API_LEVEL=400 -DHXCPP_GC_GENERATIONAL -DKORE_G1 -DKORE_G2 -DKORE_G3 -DKORE_A1 -DKORE_A2 -DKORE_LZ4X -DKORE_OPENGL -DKINC_EGL -D_POSIX_C_SOURCE=200112L -D_XOPEN_SOURCE=600 -DKORE_G4 -DKORE_G5 -DKORE_G5ONG4 -DKORE_MULTITHREADED_AUDIO -DKORE -DKOREC -DROTATE90 -DLIBHL_STATIC -DPCRE2_CODE_UNIT_WIDTH=8 -DHAVE_CONFIG_H -DNDEBUG -MD -MF $out.d -c $in -o $out
+
+rule cxx
+  deps = gcc
+  depfile = $out.d
+  command = g++ -O2 -I../../../armsdk/Kha/Kinc/Sources -I../../../armsdk/Kha/Kinc/Backends/System/Linux/Sources -I../../../armsdk/Kha/Kinc/Backends/System/POSIX/Sources -I../wayland -I../../../armsdk/Kha/Kinc/Backends/Graphics4/OpenGL/Sources -I../../../armsdk/Kha/Kinc/Backends/Graphics5/G5onG4/Sources -I.. -I../../../armsdk/Kha/Backends/Kinc-HL/hl/src -I../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre -I../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/include -I../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib -I../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet -DHXCPP_API_LEVEL=400 -DHXCPP_GC_GENERATIONAL -DKORE_G1 -DKORE_G2 -DKORE_G3 -DKORE_A1 -DKORE_A2 -DKORE_LZ4X -DKORE_OPENGL -DKINC_EGL -D_POSIX_C_SOURCE=200112L -D_XOPEN_SOURCE=600 -DKORE_G4 -DKORE_G5 -DKORE_G5ONG4 -DKORE_MULTITHREADED_AUDIO -DKORE -DKOREC -DROTATE90 -DLIBHL_STATIC -DPCRE2_CODE_UNIT_WIDTH=8 -DHAVE_CONFIG_H -DNDEBUG -MD -MF $out.d -c $in -o $out
+
+rule link
+  pool = link_pool
+  command = g++ -o $out -O2 $in -static-libgcc -static-libstdc++ -pthread -lasound -ldl -ludev -lGL -lEGL 
+
+build compute.o: cc ../../../armsdk/Kha/Kinc/Backends/Graphics4/OpenGL/Sources/kinc/backend/compute.c
+
+build openglunit.o: cc ../../../armsdk/Kha/Kinc/Backends/Graphics4/OpenGL/Sources/kinc/backend/graphics4/openglunit.c
+
+build g5ong4unit.o: cc ../../../armsdk/Kha/Kinc/Backends/Graphics5/G5onG4/Sources/kinc/backend/graphics5/g5ong4unit.c
+
+build linuxunit.o: cc ../../../armsdk/Kha/Kinc/Backends/System/Linux/Sources/kinc/backend/linuxunit.c
+
+build posixunit.o: cc ../../../armsdk/Kha/Kinc/Backends/System/POSIX/Sources/kinc/backend/posixunit.c
+
+build rootunit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/rootunit.c
+
+build rootunit_.o: cxx ../../../armsdk/Kha/Kinc/Sources/kinc/rootunit.cpp
+
+build a1unit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/audio1/a1unit.c
+
+build audio.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/audio2/audio.c
+
+build graphics.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/graphics1/graphics.c
+
+build graphics_kore.o: cxx ../../../armsdk/Kha/Kinc/Sources/kinc/graphics2/graphics_kore.cpp
+
+build graphics_soft.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/graphics2/graphics_soft.c
+
+build g4unit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/graphics4/g4unit.c
+
+build g5unit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/graphics5/g5unit.c
+
+build inputunit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/input/inputunit.c
+
+build iounit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/io/iounit.c
+
+build stb_vorbis.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/libs/stb_vorbis.c
+
+build mathunit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/math/mathunit.c
+
+build networkunit.o: cc ../../../armsdk/Kha/Kinc/Sources/kinc/network/networkunit.c
+
+build waylandunit.o: cc ../wayland/wayland-generated/waylandunit.c
+
+build kore_sources.o: cc ../kore_sources.c
+
+build aes.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/aes.c
+
+build aesni.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/aesni.c
+
+build arc4.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/arc4.c
+
+build asn1parse.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/asn1parse.c
+
+build asn1write.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/asn1write.c
+
+build base64.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/base64.c
+
+build bignum.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/bignum.c
+
+build blowfish.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/blowfish.c
+
+build camellia.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/camellia.c
+
+build ccm.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ccm.c
+
+build certs.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/certs.c
+
+build cipher.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/cipher.c
+
+build cipher_wrap.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/cipher_wrap.c
+
+build cmac.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/cmac.c
+
+build ctr_drbg.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ctr_drbg.c
+
+build debug.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/debug.c
+
+build des.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/des.c
+
+build dhm.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/dhm.c
+
+build ecdh.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ecdh.c
+
+build ecdsa.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ecdsa.c
+
+build ecjpake.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ecjpake.c
+
+build ecp.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ecp.c
+
+build ecp_curves.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ecp_curves.c
+
+build entropy.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/entropy.c
+
+build entropy_poll.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/entropy_poll.c
+
+build error.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/error.c
+
+build gcm.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/gcm.c
+
+build havege.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/havege.c
+
+build hmac_drbg.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/hmac_drbg.c
+
+build md.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/md.c
+
+build md2.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/md2.c
+
+build md4.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/md4.c
+
+build md5.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/md5.c
+
+build md_wrap.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/md_wrap.c
+
+build memory_buffer_alloc.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/memory_buffer_alloc.c
+
+build net_sockets.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/net_sockets.c
+
+build oid.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/oid.c
+
+build padlock.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/padlock.c
+
+build pem.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pem.c
+
+build pk.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pk.c
+
+build pk_wrap.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pk_wrap.c
+
+build pkcs11.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pkcs11.c
+
+build pkcs12.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pkcs12.c
+
+build pkcs5.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pkcs5.c
+
+build pkparse.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pkparse.c
+
+build pkwrite.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/pkwrite.c
+
+build platform.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/platform.c
+
+build ripemd160.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ripemd160.c
+
+build rsa.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/rsa.c
+
+build rsa_internal.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/rsa_internal.c
+
+build sha1.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/sha1.c
+
+build sha256.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/sha256.c
+
+build sha512.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/sha512.c
+
+build ssl_cache.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ssl_cache.c
+
+build ssl_ciphersuites.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ssl_ciphersuites.c
+
+build ssl_cli.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ssl_cli.c
+
+build ssl_cookie.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ssl_cookie.c
+
+build ssl_srv.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ssl_srv.c
+
+build ssl_ticket.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ssl_ticket.c
+
+build ssl_tls.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/ssl_tls.c
+
+build threading.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/threading.c
+
+build timing.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/timing.c
+
+build version.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/version.c
+
+build version_features.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/version_features.c
+
+build x509.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/x509.c
+
+build x509_create.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/x509_create.c
+
+build x509_crl.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/x509_crl.c
+
+build x509_crt.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/x509_crt.c
+
+build x509_csr.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/x509_csr.c
+
+build x509write_crt.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/x509write_crt.c
+
+build x509write_csr.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/x509write_csr.c
+
+build xtea.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/mbedtls/library/xtea.c
+
+build pcre2_auto_possess.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_auto_possess.c
+
+build pcre2_chartables.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_chartables.c
+
+build pcre2_compile.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_compile.c
+
+build pcre2_config.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_config.c
+
+build pcre2_context.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_context.c
+
+build pcre2_convert.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_convert.c
+
+build pcre2_dfa_match.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_dfa_match.c
+
+build pcre2_error.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_error.c
+
+build pcre2_extuni.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_extuni.c
+
+build pcre2_find_bracket.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_find_bracket.c
+
+build pcre2_jit_compile.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_jit_compile.c
+
+build pcre2_maketables.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_maketables.c
+
+build pcre2_match.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_match.c
+
+build pcre2_match_data.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_match_data.c
+
+build pcre2_newline.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_newline.c
+
+build pcre2_ord2utf.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_ord2utf.c
+
+build pcre2_pattern_info.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_pattern_info.c
+
+build pcre2_script_run.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_script_run.c
+
+build pcre2_serialize.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_serialize.c
+
+build pcre2_string_utils.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_string_utils.c
+
+build pcre2_study.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_study.c
+
+build pcre2_substitute.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_substitute.c
+
+build pcre2_substring.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_substring.c
+
+build pcre2_tables.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_tables.c
+
+build pcre2_ucd.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_ucd.c
+
+build pcre2_ucptables.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_ucptables.c
+
+build pcre2_valid_utf.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_valid_utf.c
+
+build pcre2_xclass.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/pcre/pcre2_xclass.c
+
+build adler32.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/adler32.c
+
+build crc32.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/crc32.c
+
+build deflate.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/deflate.c
+
+build inffast.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/inffast.c
+
+build inflate.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/inflate.c
+
+build inftrees.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/inftrees.c
+
+build trees.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/trees.c
+
+build zutil.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/include/zlib/zutil.c
+
+build sha1_.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/libs/fmt/sha1.c
+
+build ssl.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/libs/ssl/ssl.c
+
+build gc.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/gc.c
+
+build array.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/array.c
+
+build buffer.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/buffer.c
+
+build bytes.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/bytes.c
+
+build cast.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/cast.c
+
+build date.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/date.c
+
+build error_.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/error.c
+
+build file.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/file.c
+
+build fun.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/fun.c
+
+build maps.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/maps.c
+
+build math.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/math.c
+
+build obj.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/obj.c
+
+build process.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/process.c
+
+build random.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/random.c
+
+build regexp.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/regexp.c
+
+build socket.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/socket.c
+
+build string.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/string.c
+
+build sys.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/sys.c
+
+build sys_android.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/sys_android.c
+
+build thread.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/thread.c
+
+build track.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/track.c
+
+build types.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/types.c
+
+build ucs2.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/hl/src/std/ucs2.c
+
+build bridge.o: cc ../../../armsdk/Kha/Backends/Kinc-HL/kinc-bridge/bridge.c
+
+build btaxissweep3.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp
+
+build btbroadphaseproxy.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp
+
+build btcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.cpp
+
+build btdbvt.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btDbvt.cpp
+
+build btdbvtbroadphase.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.cpp
+
+build btdispatcher.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btDispatcher.cpp
+
+build btoverlappingpaircache.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.cpp
+
+build btquantizedbvh.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btQuantizedBvh.cpp
+
+build btsimplebroadphase.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/BroadphaseCollision/btSimpleBroadphase.cpp
+
+build spheretriangledetector.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/SphereTriangleDetector.cpp
+
+build btactivatingcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.cpp
+
+build btbox2dbox2dcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.cpp
+
+build btboxboxcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.cpp
+
+build btboxboxdetector.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btBoxBoxDetector.cpp
+
+build btcollisiondispatcher.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp
+
+build btcollisiondispatchermt.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btCollisionDispatcherMt.cpp
+
+build btcollisionobject.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btCollisionObject.cpp
+
+build btcollisionworld.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.cpp
+
+build btcollisionworldimporter.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btCollisionWorldImporter.cpp
+
+build btcompoundcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.cpp
+
+build btcompoundcompoundcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btCompoundCompoundCollisionAlgorithm.cpp
+
+build btconvex2dconvex2dalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp
+
+build btconvexconcavecollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btConvexConcaveCollisionAlgorithm.cpp
+
+build btconvexconvexalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.cpp
+
+build btconvexplanecollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp
+
+build btdefaultcollisionconfiguration.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.cpp
+
+build btemptycollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.cpp
+
+build btghostobject.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btGhostObject.cpp
+
+build bthashedsimplepaircache.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btHashedSimplePairCache.cpp
+
+build btinternaledgeutility.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp
+
+build btmanifoldresult.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btManifoldResult.cpp
+
+build btsimulationislandmanager.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btSimulationIslandManager.cpp
+
+build btsphereboxcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.cpp
+
+build btspherespherecollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.cpp
+
+build btspheretrianglecollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btSphereTriangleCollisionAlgorithm.cpp
+
+build btunionfind.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionDispatch/btUnionFind.cpp
+
+build btbox2dshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btBox2dShape.cpp
+
+build btboxshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btBoxShape.cpp
+
+build btbvhtrianglemeshshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp
+
+build btcapsuleshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btCapsuleShape.cpp
+
+build btcollisionshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btCollisionShape.cpp
+
+build btcompoundshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btCompoundShape.cpp
+
+build btconcaveshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConcaveShape.cpp
+
+build btconeshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConeShape.cpp
+
+build btconvex2dshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConvex2dShape.cpp
+
+build btconvexhullshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConvexHullShape.cpp
+
+build btconvexinternalshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConvexInternalShape.cpp
+
+build btconvexpointcloudshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConvexPointCloudShape.cpp
+
+build btconvexpolyhedron.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConvexPolyhedron.cpp
+
+build btconvexshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConvexShape.cpp
+
+build btconvextrianglemeshshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.cpp
+
+build btcylindershape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btCylinderShape.cpp
+
+build btemptyshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btEmptyShape.cpp
+
+build btheightfieldterrainshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp
+
+build btminkowskisumshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btMinkowskiSumShape.cpp
+
+build btmultisphereshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btMultiSphereShape.cpp
+
+build btmultimaterialtrianglemeshshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.cpp
+
+build btoptimizedbvh.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btOptimizedBvh.cpp
+
+build btpolyhedralconvexshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp
+
+build btscaledbvhtrianglemeshshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp
+
+build btshapehull.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btShapeHull.cpp
+
+build btsphereshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btSphereShape.cpp
+
+build btstaticplaneshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.cpp
+
+build btstridingmeshinterface.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btStridingMeshInterface.cpp
+
+build bttetrahedronshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btTetrahedronShape.cpp
+
+build bttrianglebuffer.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btTriangleBuffer.cpp
+
+build bttrianglecallback.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btTriangleCallback.cpp
+
+build bttriangleindexvertexarray.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.cpp
+
+build bttriangleindexvertexmaterialarray.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexMaterialArray.cpp
+
+build bttrianglemesh.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btTriangleMesh.cpp
+
+build bttrianglemeshshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp
+
+build btuniformscalingshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/CollisionShapes/btUniformScalingShape.cpp
+
+build btcontactprocessing.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/btContactProcessing.cpp
+
+build btgimpactbvh.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/btGImpactBvh.cpp
+
+build btgimpactcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp
+
+build btgimpactquantizedbvh.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/btGImpactQuantizedBvh.cpp
+
+build btgimpactshape.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/btGImpactShape.cpp
+
+build btgenericpoolallocator.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/btGenericPoolAllocator.cpp
+
+build bttriangleshapeex.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/btTriangleShapeEx.cpp
+
+build gim_box_set.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/gim_box_set.cpp
+
+build gim_contact.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/gim_contact.cpp
+
+build gim_memory.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/gim_memory.cpp
+
+build gim_tri_collision.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/Gimpact/gim_tri_collision.cpp
+
+build btcontinuousconvexcollision.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.cpp
+
+build btconvexcast.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btConvexCast.cpp
+
+build btgjkconvexcast.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.cpp
+
+build btgjkepa2.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btGjkEpa2.cpp
+
+build btgjkepapenetrationdepthsolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.cpp
+
+build btgjkpairdetector.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.cpp
+
+build btminkowskipenetrationdepthsolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.cpp
+
+build btpersistentmanifold.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp
+
+build btpolyhedralcontactclipping.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btPolyhedralContactClipping.cpp
+
+build btraycastcallback.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp
+
+build btsubsimplexconvexcast.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp
+
+build btvoronoisimplexsolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp
+
+build btkinematiccharactercontroller.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Character/btKinematicCharacterController.cpp
+
+build btconetwistconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp
+
+build btcontactconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btContactConstraint.cpp
+
+build btfixedconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btFixedConstraint.cpp
+
+build btgearconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btGearConstraint.cpp
+
+build btgeneric6dofconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.cpp
+
+build btgeneric6dofspring2constraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpring2Constraint.cpp
+
+build btgeneric6dofspringconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.cpp
+
+build bthinge2constraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btHinge2Constraint.cpp
+
+build bthingeconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp
+
+build btnncgconstraintsolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btNNCGConstraintSolver.cpp
+
+build btpoint2pointconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.cpp
+
+build btsequentialimpulseconstraintsolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp
+
+build btsliderconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btSliderConstraint.cpp
+
+build btsolve2linearconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.cpp
+
+build bttypedconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp
+
+build btuniversalconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/ConstraintSolver/btUniversalConstraint.cpp
+
+build btdiscretedynamicsworld.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.cpp
+
+build btdiscretedynamicsworldmt.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorldMt.cpp
+
+build btrigidbody.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Dynamics/btRigidBody.cpp
+
+build btsimpledynamicsworld.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Dynamics/btSimpleDynamicsWorld.cpp
+
+build btsimulationislandmanagermt.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Dynamics/btSimulationIslandManagerMt.cpp
+
+build btmultibody.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBody.cpp
+
+build btmultibodyconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyConstraint.cpp
+
+build btmultibodyconstraintsolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyConstraintSolver.cpp
+
+build btmultibodydynamicsworld.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyDynamicsWorld.cpp
+
+build btmultibodyfixedconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyFixedConstraint.cpp
+
+build btmultibodygearconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyGearConstraint.cpp
+
+build btmultibodyjointlimitconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyJointLimitConstraint.cpp
+
+build btmultibodyjointmotor.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyJointMotor.cpp
+
+build btmultibodypoint2point.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodyPoint2Point.cpp
+
+build btmultibodysliderconstraint.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Featherstone/btMultiBodySliderConstraint.cpp
+
+build btdantziglcp.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/MLCPSolvers/btDantzigLCP.cpp
+
+build btlemkealgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/MLCPSolvers/btLemkeAlgorithm.cpp
+
+build btmlcpsolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/MLCPSolvers/btMLCPSolver.cpp
+
+build btraycastvehicle.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Vehicle/btRaycastVehicle.cpp
+
+build btwheelinfo.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletDynamics/Vehicle/btWheelInfo.cpp
+
+build btdefaultsoftbodysolver.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btDefaultSoftBodySolver.cpp
+
+build btsoftbody.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftBody.cpp
+
+build btsoftbodyconcavecollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp
+
+build btsoftbodyhelpers.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftBodyHelpers.cpp
+
+build btsoftbodyrigidbodycollisionconfiguration.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.cpp
+
+build btsoftmultibodydynamicsworld.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftMultiBodyDynamicsWorld.cpp
+
+build btsoftrigidcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp
+
+build btsoftrigiddynamicsworld.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftRigidDynamicsWorld.cpp
+
+build btsoftsoftcollisionalgorithm.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp
+
+build btalignedallocator.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btAlignedAllocator.cpp
+
+build btconvexhull.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btConvexHull.cpp
+
+build btconvexhullcomputer.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btConvexHullComputer.cpp
+
+build btgeometryutil.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btGeometryUtil.cpp
+
+build btpolardecomposition.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btPolarDecomposition.cpp
+
+build btquickprof.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btQuickprof.cpp
+
+build btserializer.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btSerializer.cpp
+
+build btserializer64.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btSerializer64.cpp
+
+build btthreads.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btThreads.cpp
+
+build btvector3.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/bullet/LinearMath/btVector3.cpp
+
+build debugdrawer.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/hl/DebugDrawer.cpp
+
+build bullet.o: cxx ../../../../../../../../home/david/myProjects/balder3d/armsdk/lib/haxebullet/hl/bullet.cpp
+
+build balder3d_1_0_124: link compute.o openglunit.o g5ong4unit.o linuxunit.o posixunit.o rootunit.o rootunit_.o a1unit.o audio.o graphics.o graphics_kore.o graphics_soft.o g4unit.o g5unit.o inputunit.o iounit.o stb_vorbis.o mathunit.o networkunit.o waylandunit.o kore_sources.o aes.o aesni.o arc4.o asn1parse.o asn1write.o base64.o bignum.o blowfish.o camellia.o ccm.o certs.o cipher.o cipher_wrap.o cmac.o ctr_drbg.o debug.o des.o dhm.o ecdh.o ecdsa.o ecjpake.o ecp.o ecp_curves.o entropy.o entropy_poll.o error.o gcm.o havege.o hmac_drbg.o md.o md2.o md4.o md5.o md_wrap.o memory_buffer_alloc.o net_sockets.o oid.o padlock.o pem.o pk.o pk_wrap.o pkcs11.o pkcs12.o pkcs5.o pkparse.o pkwrite.o platform.o ripemd160.o rsa.o rsa_internal.o sha1.o sha256.o sha512.o ssl_cache.o ssl_ciphersuites.o ssl_cli.o ssl_cookie.o ssl_srv.o ssl_ticket.o ssl_tls.o threading.o timing.o version.o version_features.o x509.o x509_create.o x509_crl.o x509_crt.o x509_csr.o x509write_crt.o x509write_csr.o xtea.o pcre2_auto_possess.o pcre2_chartables.o pcre2_compile.o pcre2_config.o pcre2_context.o pcre2_convert.o pcre2_dfa_match.o pcre2_error.o pcre2_extuni.o pcre2_find_bracket.o pcre2_jit_compile.o pcre2_maketables.o pcre2_match.o pcre2_match_data.o pcre2_newline.o pcre2_ord2utf.o pcre2_pattern_info.o pcre2_script_run.o pcre2_serialize.o pcre2_string_utils.o pcre2_study.o pcre2_substitute.o pcre2_substring.o pcre2_tables.o pcre2_ucd.o pcre2_ucptables.o pcre2_valid_utf.o pcre2_xclass.o adler32.o crc32.o deflate.o inffast.o inflate.o inftrees.o trees.o zutil.o sha1_.o ssl.o gc.o array.o buffer.o bytes.o cast.o date.o error_.o file.o fun.o maps.o math.o obj.o process.o random.o regexp.o socket.o string.o sys.o sys_android.o thread.o track.o types.o ucs2.o bridge.o btaxissweep3.o btbroadphaseproxy.o btcollisionalgorithm.o btdbvt.o btdbvtbroadphase.o btdispatcher.o btoverlappingpaircache.o btquantizedbvh.o btsimplebroadphase.o spheretriangledetector.o btactivatingcollisionalgorithm.o btbox2dbox2dcollisionalgorithm.o btboxboxcollisionalgorithm.o btboxboxdetector.o btcollisiondispatcher.o btcollisiondispatchermt.o btcollisionobject.o btcollisionworld.o btcollisionworldimporter.o btcompoundcollisionalgorithm.o btcompoundcompoundcollisionalgorithm.o btconvex2dconvex2dalgorithm.o btconvexconcavecollisionalgorithm.o btconvexconvexalgorithm.o btconvexplanecollisionalgorithm.o btdefaultcollisionconfiguration.o btemptycollisionalgorithm.o btghostobject.o bthashedsimplepaircache.o btinternaledgeutility.o btmanifoldresult.o btsimulationislandmanager.o btsphereboxcollisionalgorithm.o btspherespherecollisionalgorithm.o btspheretrianglecollisionalgorithm.o btunionfind.o btbox2dshape.o btboxshape.o btbvhtrianglemeshshape.o btcapsuleshape.o btcollisionshape.o btcompoundshape.o btconcaveshape.o btconeshape.o btconvex2dshape.o btconvexhullshape.o btconvexinternalshape.o btconvexpointcloudshape.o btconvexpolyhedron.o btconvexshape.o btconvextrianglemeshshape.o btcylindershape.o btemptyshape.o btheightfieldterrainshape.o btminkowskisumshape.o btmultisphereshape.o btmultimaterialtrianglemeshshape.o btoptimizedbvh.o btpolyhedralconvexshape.o btscaledbvhtrianglemeshshape.o btshapehull.o btsphereshape.o btstaticplaneshape.o btstridingmeshinterface.o bttetrahedronshape.o bttrianglebuffer.o bttrianglecallback.o bttriangleindexvertexarray.o bttriangleindexvertexmaterialarray.o bttrianglemesh.o bttrianglemeshshape.o btuniformscalingshape.o btcontactprocessing.o btgimpactbvh.o btgimpactcollisionalgorithm.o btgimpactquantizedbvh.o btgimpactshape.o btgenericpoolallocator.o bttriangleshapeex.o gim_box_set.o gim_contact.o gim_memory.o gim_tri_collision.o btcontinuousconvexcollision.o btconvexcast.o btgjkconvexcast.o btgjkepa2.o btgjkepapenetrationdepthsolver.o btgjkpairdetector.o btminkowskipenetrationdepthsolver.o btpersistentmanifold.o btpolyhedralcontactclipping.o btraycastcallback.o btsubsimplexconvexcast.o btvoronoisimplexsolver.o btkinematiccharactercontroller.o btconetwistconstraint.o btcontactconstraint.o btfixedconstraint.o btgearconstraint.o btgeneric6dofconstraint.o btgeneric6dofspring2constraint.o btgeneric6dofspringconstraint.o bthinge2constraint.o bthingeconstraint.o btnncgconstraintsolver.o btpoint2pointconstraint.o btsequentialimpulseconstraintsolver.o btsliderconstraint.o btsolve2linearconstraint.o bttypedconstraint.o btuniversalconstraint.o btdiscretedynamicsworld.o btdiscretedynamicsworldmt.o btrigidbody.o btsimpledynamicsworld.o btsimulationislandmanagermt.o btmultibody.o btmultibodyconstraint.o btmultibodyconstraintsolver.o btmultibodydynamicsworld.o btmultibodyfixedconstraint.o btmultibodygearconstraint.o btmultibodyjointlimitconstraint.o btmultibodyjointmotor.o btmultibodypoint2point.o btmultibodysliderconstraint.o btdantziglcp.o btlemkealgorithm.o btmlcpsolver.o btraycastvehicle.o btwheelinfo.o btdefaultsoftbodysolver.o btsoftbody.o btsoftbodyconcavecollisionalgorithm.o btsoftbodyhelpers.o btsoftbodyrigidbodycollisionconfiguration.o btsoftmultibodydynamicsworld.o btsoftrigidcollisionalgorithm.o btsoftrigiddynamicsworld.o btsoftsoftcollisionalgorithm.o btalignedallocator.o btconvexhull.o btconvexhullcomputer.o btgeometryutil.o btpolardecomposition.o btquickprof.o btserializer.o btserializer64.o btthreads.o btvector3.o debugdrawer.o bullet.o 

@@ -10,12 +10,18 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Download latest blender and extract to project folder
+* Download latest armsdk and extract to project folder
+* Open blender and install and enabled armsdk plugin
+* Open blender file
+* Under Render tab, press Publish
+* `cd balder3d`
+* cd to build folder: `cd ./build_balder3d/linux-hl-build/Release/`
+* `make -j16`
+* `cd ../../linux-hl`
+* `cp ../../slimeball.ogg ./data/`
+* `mv ../linux-hl-build/Release/balder3d* ./`
+* `./balder3d*`
 
 ### Contribution guidelines ###
 
